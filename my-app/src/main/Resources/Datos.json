@@ -1,0 +1,10 @@
+{"Tipo": "Aula", "id_aula": "753159", "nombre": "A1-201", "tipo": "Laboratorio", "capacidad": "30", "descripcion": "Descripcion perro", "ubicacion": "ube"}
+{"Tipo": "Carrera", "idcarrera": "1","nombre_carrera": "Ingenieria en Tecnologias de la Informacion"}
+{"Tipo": "AulaEquipo", "id_equipo": "12", "id_aula": "753159", "capacidad": "30"}
+{"Tipo": "Categoria_equipo", "id": "1", "nombre":"Equipos de Computo", "descripcion": "Equipos de computo"}
+{"Tipo": "Equipo", "id": "12", "nombre":"Computadora", "descripcion": "Pc master reis", "id_categoria": "1"}
+{"Tipo": "Grupo", "clv_grupo": "ITI-1590", "turno": "true"}
+{"Tipo": "Materia", "nombre_materia": "Ingles VI","clv_materia": "201542", "creditos":"5","cuatrimestre":"6", "posicion":"1", "clv_plan": "1234", "horasxsemana": "5", "tipo_materia": "NiIdea"}
+{"Tipo": "PlanDeEstudios", "clv_plan": "1564", "nombre_plan": "OdioAki", "nivel": "QUE", "id_carrera": "1"}
+{"Tipo": "Profesor", "clvusuario": "7894", "idCarrera": "1", "Nombre": "Arturo Perez Reverte", "nivelAds": "TYU", "Contrato": "POI" }
+{"Tipo": "Login", "clv_usuario": "7894", "password": "m15 cuy1t0s", "tipo_user": "PROF"}
