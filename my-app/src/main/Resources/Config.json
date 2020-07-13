@@ -1,1 +1,1 @@
-{"Gestor": "Postgres", "Usuario": "postgres", "Password": "1234", "Base de Datos":"ProyectoHorarios", "Host":"5432", "RutaTemp":""}
+{"Gestor": "Postgres","Host":"localhost", "Puerto": "5432", "Base de Datos":"ProyectoHorarios", "Usuario": "postgres", "Contrasena": "1234",  "RutaTemp":""}

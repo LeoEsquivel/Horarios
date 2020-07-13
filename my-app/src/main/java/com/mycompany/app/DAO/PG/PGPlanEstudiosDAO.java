@@ -1,8 +1,7 @@
 package com.mycompany.app.DAO.PG;
 
-import com.mycompany.app.DAO.DAOException;
+import com.mycompany.app.Excepciones.Excepciones;
 import com.mycompany.app.DAO.PlanEstudiosDAO;
-import com.mycompany.app.Modelo.Grupo;
 import com.mycompany.app.Modelo.PlanEstudios;
 
 import java.sql.Connection;
@@ -27,7 +26,7 @@ public class PGPlanEstudiosDAO implements PlanEstudiosDAO {
     }
 
     @Override
-    public void Insertar(PlanEstudios p) throws DAOException {
+    public void Insertar(PlanEstudios p) throws Excepciones {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(INSERT);
@@ -36,23 +35,23 @@ public class PGPlanEstudiosDAO implements PlanEstudiosDAO {
             ps.setString(3, p.getNivel());
             ps.setInt(4, p.getId_carrera());
             if (ps.executeUpdate() == 0) {
-                throw new DAOException("La informacion es posible que no se haya guardado");
+                throw new Excepciones("La informacion es posible que no se haya guardado");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en la sentencia SQL", e);
+            throw new Excepciones("Error en la sentencia SQL", e);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    throw new DAOException("Error al cerrar", e);
+                    throw new Excepciones("Error al cerrar", e);
                 }
             }
         }
     }
 
     @Override
-    public void Modificar(PlanEstudios p) throws DAOException {
+    public void Modificar(PlanEstudios p) throws Excepciones {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(UPDATE);
@@ -62,38 +61,38 @@ public class PGPlanEstudiosDAO implements PlanEstudiosDAO {
             ps.setInt(4, p.getId_carrera());
             ps.setString(5, p.getClv_plan());
             if (ps.executeUpdate() == 0) {
-                throw new DAOException("La informacion es posible que no se haya guardado");
+                throw new Excepciones("La informacion es posible que no se haya guardado");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en la sentencia SQL", e);
+            throw new Excepciones("Error en la sentencia SQL", e);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    throw new DAOException("Error al cerrar", e);
+                    throw new Excepciones("Error al cerrar", e);
                 }
             }
         }
     }
 
     @Override
-    public void Eliminar(PlanEstudios p) throws DAOException {
+    public void Eliminar(PlanEstudios p) throws Excepciones {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(DELETE);
             ps.setString(1, p.getClv_plan());
             if (ps.executeUpdate() == 0) {
-                throw new DAOException("La informacion es posible que no se haya guardado");
+                throw new Excepciones("La informacion es posible que no se haya guardado");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en la sentencia SQL", e);
+            throw new Excepciones("Error en la sentencia SQL", e);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    throw new DAOException("Error al cerrar", e);
+                    throw new Excepciones("Error al cerrar", e);
                 }
             }
         }
@@ -108,7 +107,7 @@ public class PGPlanEstudiosDAO implements PlanEstudiosDAO {
         return p;
     }
     @Override
-    public List<PlanEstudios> All() throws DAOException {
+    public List<PlanEstudios> All() throws Excepciones {
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<PlanEstudios> p = new ArrayList<>();
@@ -116,15 +115,15 @@ public class PGPlanEstudiosDAO implements PlanEstudiosDAO {
             ps = con.prepareStatement(ALL);
             rs = ps.executeQuery();
             p.add(CrearInstancia(rs));
-        } catch (Exception e) {
-            throw new DAOException("Error es la sentencia SQL", e);
+        } catch (java.lang.Exception e) {
+            throw new Excepciones("Error es la sentencia SQL", e);
         } finally {
             if (rs != null || ps != null) {
                 try {
                     rs.close();
                     ps.close();
-                }catch (Exception e) {
-                    throw new DAOException("No ha podido cerrar correctamente");
+                }catch (java.lang.Exception e) {
+                    throw new Excepciones("No ha podido cerrar correctamente");
                 }
             }
         }
@@ -132,7 +131,7 @@ public class PGPlanEstudiosDAO implements PlanEstudiosDAO {
     }
 
     @Override
-    public PlanEstudios Buscar(String id) throws DAOException {
+    public PlanEstudios Buscar(String id) throws Excepciones {
         PreparedStatement ps = null;
         ResultSet rs = null;
         PlanEstudios g = null;
@@ -143,17 +142,17 @@ public class PGPlanEstudiosDAO implements PlanEstudiosDAO {
             if (rs.next()) {
                 g = CrearInstancia(rs);
             } else {
-                throw new DAOException("No se han encontrado el registro");
+                throw new Excepciones("No se han encontrado el registro");
             }
-        } catch (Exception e) {
-            throw new DAOException("Error es la sentencia SQL", e);
+        } catch (java.lang.Exception e) {
+            throw new Excepciones("Error es la sentencia SQL", e);
         } finally {
             if (rs != null || ps != null) {
                 try {
                     rs.close();
                     ps.close();
-                }catch (Exception e) {
-                    throw new DAOException("No ha podido cerrar correctamente");
+                }catch (java.lang.Exception e) {
+                    throw new Excepciones("No ha podido cerrar correctamente");
                 }
             }
         }

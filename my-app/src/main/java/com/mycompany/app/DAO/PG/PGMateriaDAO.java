@@ -1,8 +1,7 @@
 package com.mycompany.app.DAO.PG;
 
-import com.mycompany.app.DAO.DAOException;
+import com.mycompany.app.Excepciones.Excepciones;
 import com.mycompany.app.DAO.MateriaDAO;
-import com.mycompany.app.Modelo.Grupo;
 import com.mycompany.app.Modelo.Materia;
 
 import java.sql.Connection;
@@ -29,7 +28,7 @@ public class PGMateriaDAO implements MateriaDAO {
 
 
     @Override
-    public void Insertar(Materia p) throws DAOException {
+    public void Insertar(Materia p) throws Excepciones {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(INSERT);
@@ -42,23 +41,23 @@ public class PGMateriaDAO implements MateriaDAO {
             ps.setInt(7, p.getHoras_x_semana());
             ps.setString(8, p.getTipo_materia());
             if (ps.executeUpdate() == 0) {
-                throw new DAOException("La informacion es posible que no se haya guardado");
+                throw new Excepciones("La informacion es posible que no se haya guardado");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en la sentencia SQL", e);
+            throw new Excepciones("Error en la sentencia SQL", e);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    throw new DAOException("Error al cerrar", e);
+                    throw new Excepciones("Error al cerrar", e);
                 }
             }
         }
     }
 
     @Override
-    public void Modificar(Materia p) throws DAOException {
+    public void Modificar(Materia p) throws Excepciones {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(UPDATE);
@@ -72,38 +71,38 @@ public class PGMateriaDAO implements MateriaDAO {
             ps.setString(8, p.getTipo_materia());
             ps.setString(9, p.getClv_materia());
             if (ps.executeUpdate() == 0) {
-                throw new DAOException("La informacion es posible que no se haya guardado");
+                throw new Excepciones("La informacion es posible que no se haya guardado");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en la sentencia SQL", e);
+            throw new Excepciones("Error en la sentencia SQL", e);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    throw new DAOException("Error al cerrar", e);
+                    throw new Excepciones("Error al cerrar", e);
                 }
             }
         }
     }
 
     @Override
-    public void Eliminar(Materia p) throws DAOException {
+    public void Eliminar(Materia p) throws Excepciones {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(DELETE);
             ps.setString(1, p.getClv_materia());
             if (ps.executeUpdate() == 0) {
-                throw new DAOException("La informacion es posible que no se haya guardado");
+                throw new Excepciones("La informacion es posible que no se haya guardado");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en la sentencia SQL", e);
+            throw new Excepciones("Error en la sentencia SQL", e);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    throw new DAOException("Error al cerrar", e);
+                    throw new Excepciones("Error al cerrar", e);
                 }
             }
         }
@@ -123,7 +122,7 @@ public class PGMateriaDAO implements MateriaDAO {
     }
 
     @Override
-    public List<Materia> All() throws DAOException {
+    public List<Materia> All() throws Excepciones {
         PreparedStatement ps = null;
         ResultSet rs = null;
         ArrayList<Materia> g = new ArrayList<>();
@@ -133,15 +132,15 @@ public class PGMateriaDAO implements MateriaDAO {
             while (rs.next()){
                 g.add(CrearInstancia(rs));
             }
-        } catch (Exception e) {
-            throw new DAOException("Error es la sentencia SQL", e);
+        } catch (java.lang.Exception e) {
+            throw new Excepciones("Error es la sentencia SQL", e);
         } finally {
             if (rs != null || ps != null) {
                 try {
                     rs.close();
                     ps.close();
-                }catch (Exception e) {
-                    throw new DAOException("No ha podido cerrar correctamente");
+                }catch (java.lang.Exception e) {
+                    throw new Excepciones("No ha podido cerrar correctamente");
                 }
             }
         }
@@ -149,7 +148,7 @@ public class PGMateriaDAO implements MateriaDAO {
     }
 
     @Override
-    public Materia Buscar(String id) throws DAOException {
+    public Materia Buscar(String id) throws Excepciones {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Materia g = null;
@@ -160,17 +159,17 @@ public class PGMateriaDAO implements MateriaDAO {
             if (rs.next()) {
                g = CrearInstancia(rs);
             } else {
-                throw new DAOException("No se han encontrado el registro");
+                throw new Excepciones("No se han encontrado el registro");
             }
-        } catch (Exception e) {
-            throw new DAOException("Error es la sentencia SQL", e);
+        } catch (java.lang.Exception e) {
+            throw new Excepciones("Error es la sentencia SQL", e);
         } finally {
             if (rs != null || ps != null) {
                 try {
                     rs.close();
                     ps.close();
-                }catch (Exception e) {
-                    throw new DAOException("No ha podido cerrar correctamente");
+                }catch (java.lang.Exception e) {
+                    throw new Excepciones("No ha podido cerrar correctamente");
                 }
             }
         }

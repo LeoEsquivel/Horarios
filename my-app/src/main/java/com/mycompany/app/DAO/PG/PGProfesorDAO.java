@@ -1,6 +1,6 @@
 package com.mycompany.app.DAO.PG;
 
-import com.mycompany.app.DAO.DAOException;
+import com.mycompany.app.Excepciones.Excepciones;
 import com.mycompany.app.DAO.ProfesorDAO;
 import com.mycompany.app.Modelo.Profesor;
 
@@ -26,7 +26,7 @@ public class PGProfesorDAO implements ProfesorDAO {
     }
 
     @Override
-    public void Insertar(Profesor p) throws DAOException {
+    public void Insertar(Profesor p) throws Excepciones {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(INSERT);
@@ -36,16 +36,16 @@ public class PGProfesorDAO implements ProfesorDAO {
             ps.setString(4, p.getNivel_ads());
             ps.setString(5, p.getContrato());
             if (ps.executeUpdate() == 0) {
-                throw new DAOException("La informacion es posible que no se haya guardado");
+                throw new Excepciones("La informacion es posible que no se haya guardado");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en la sentencia SQL", e);
+            throw new Excepciones("Error en la sentencia SQL", e);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    throw new DAOException("Error al cerrar", e);
+                    throw new Excepciones("Error al cerrar", e);
                 }
             }
 
@@ -53,7 +53,7 @@ public class PGProfesorDAO implements ProfesorDAO {
     }
 
     @Override
-    public void Modificar(Profesor p) throws DAOException {
+    public void Modificar(Profesor p) throws Excepciones {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(UPDATE);
@@ -64,16 +64,16 @@ public class PGProfesorDAO implements ProfesorDAO {
             ps.setString(5, p.getContrato());
             ps.setString(6, p.getClv_usuario());
             if (ps.executeUpdate() == 0) {
-                throw new DAOException("La informacion es posible que no se haya guardado");
+                throw new Excepciones("La informacion es posible que no se haya guardado");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en la sentencia SQL", e);
+            throw new Excepciones("Error en la sentencia SQL", e);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    throw new DAOException("Error al cerrar", e);
+                    throw new Excepciones("Error al cerrar", e);
                 }
             }
         }
@@ -81,22 +81,22 @@ public class PGProfesorDAO implements ProfesorDAO {
     }
 
     @Override
-    public void Eliminar(Profesor p) throws DAOException {
+    public void Eliminar(Profesor p) throws Excepciones {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(DELETE);
             ps.setString(1, p.getClv_usuario());
             if (ps.executeUpdate() == 0) {
-                throw new DAOException("La informacion es posible que no se haya guardado");
+                throw new Excepciones("La informacion es posible que no se haya guardado");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en la sentencia SQL", e);
+            throw new Excepciones("Error en la sentencia SQL", e);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    throw new DAOException("Error al cerrar", e);
+                    throw new Excepciones("Error al cerrar", e);
                 }
             }
         }
@@ -113,7 +113,7 @@ public class PGProfesorDAO implements ProfesorDAO {
     }
 
     @Override
-    public List<Profesor> All() throws DAOException{
+    public List<Profesor> All() throws Excepciones {
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<Profesor> p = new ArrayList<>();
@@ -123,15 +123,15 @@ public class PGProfesorDAO implements ProfesorDAO {
             while (rs.next()){
                 p.add(Crearinstancia(rs));
             }
-        } catch (Exception e) {
-            throw new DAOException("Error es la sentencia SQL", e);
+        } catch (java.lang.Exception e) {
+            throw new Excepciones("Error es la sentencia SQL", e);
         } finally {
             if (rs != null || ps != null) {
                 try {
                     rs.close();
                     ps.close();
-                }catch (Exception e) {
-                    throw new DAOException("No ha podido cerrar correctamente");
+                }catch (java.lang.Exception e) {
+                    throw new Excepciones("No ha podido cerrar correctamente");
                 }
             }
         }
@@ -139,7 +139,7 @@ public class PGProfesorDAO implements ProfesorDAO {
     }
 
     @Override
-    public Profesor Buscar(String clv) throws DAOException {
+    public Profesor Buscar(String clv) throws Excepciones {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Profesor p = null;
@@ -150,17 +150,17 @@ public class PGProfesorDAO implements ProfesorDAO {
             if (rs.next()) {
                 p = Crearinstancia(rs);
             } else {
-                throw new DAOException("No se han encontrado el registro");
+                throw new Excepciones("No se han encontrado el registro");
             }
-        } catch (Exception e) {
-            throw new DAOException("Error es la sentencia SQL", e);
+        } catch (java.lang.Exception e) {
+            throw new Excepciones("Error es la sentencia SQL", e);
         } finally {
             if (rs != null || ps != null) {
                 try {
                     rs.close();
                     ps.close();
-                }catch (Exception e) {
-                    throw new DAOException("No ha podido cerrar correctamente");
+                }catch (java.lang.Exception e) {
+                    throw new Excepciones("No ha podido cerrar correctamente");
                 }
             }
         }

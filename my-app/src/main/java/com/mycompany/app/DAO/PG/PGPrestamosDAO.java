@@ -1,8 +1,7 @@
 package com.mycompany.app.DAO.PG;
 
-import com.mycompany.app.DAO.DAOException;
+import com.mycompany.app.Excepciones.Excepciones;
 import com.mycompany.app.DAO.PrestamosDAO;
-import com.mycompany.app.Modelo.Disponibilidad;
 import com.mycompany.app.Modelo.Prestamos;
 
 import java.sql.Connection;
@@ -27,7 +26,7 @@ public class PGPrestamosDAO implements PrestamosDAO {
     }
 
     @Override
-    public void Insertar(Prestamos p) throws DAOException {
+    public void Insertar(Prestamos p) throws Excepciones {
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(INSERT);
@@ -35,23 +34,23 @@ public class PGPrestamosDAO implements PrestamosDAO {
             ps.setInt(2, p.getPkPres().getIdcarrera());
 
             if(ps.executeUpdate()== 0){
-                throw new DAOException("Es posible que los datos no hayan sido guardaos.");
+                throw new Excepciones("Es posible que los datos no hayan sido guardaos.");
             }
-        }catch (Exception e){
-            throw new DAOException("Error en la sentencia SQL", e);
+        }catch (java.lang.Exception e){
+            throw new Excepciones("Error en la sentencia SQL", e);
         }finally {
             if (ps != null){
                 try {
                     ps.close();
-                } catch (Exception e) {
-                    throw new DAOException("Error al cerrar.", e);
+                } catch (java.lang.Exception e) {
+                    throw new Excepciones("Error al cerrar.", e);
                 }
             }
         }
     }
 
     @Override
-    public void Modificar(Prestamos p) throws DAOException {
+    public void Modificar(Prestamos p) throws Excepciones {
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(UPDATE);
@@ -60,39 +59,39 @@ public class PGPrestamosDAO implements PrestamosDAO {
             ps.setString(3, p.getPkPres().getClv_usuario());
             ps.setInt(4, p.getPkPres().getIdcarrera());
             if(ps.executeUpdate()== 0){
-                throw new DAOException("Es posible que los datos no hayan sido guardaos.");
+                throw new Excepciones("Es posible que los datos no hayan sido guardaos.");
             }
-        }catch (Exception e){
-            throw new DAOException("Error en la sentencia SQL", e);
+        }catch (java.lang.Exception e){
+            throw new Excepciones("Error en la sentencia SQL", e);
         }finally {
             if (ps != null){
                 try {
                     ps.close();
-                } catch (Exception e) {
-                    throw new DAOException("Error al cerrar.", e);
+                } catch (java.lang.Exception e) {
+                    throw new Excepciones("Error al cerrar.", e);
                 }
             }
         }
     }
 
     @Override
-    public void Eliminar(Prestamos p) throws DAOException {
+    public void Eliminar(Prestamos p) throws Excepciones {
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(DELETE);
             ps.setString(1, p.getPkPres().getClv_usuario());
             ps.setInt(2, p.getPkPres().getIdcarrera());
             if(ps.executeUpdate()== 0){
-                throw new DAOException("Es posible que los datos no hayan sido guardaos.");
+                throw new Excepciones("Es posible que los datos no hayan sido guardaos.");
             }
-        }catch (Exception e){
-            throw new DAOException("Error en la sentencia SQL", e);
+        }catch (java.lang.Exception e){
+            throw new Excepciones("Error en la sentencia SQL", e);
         }finally {
             if (ps != null){
                 try {
                     ps.close();
-                } catch (Exception e) {
-                    throw new DAOException("Error al cerrar.", e);
+                } catch (java.lang.Exception e) {
+                    throw new Excepciones("Error al cerrar.", e);
                 }
             }
         }
@@ -109,7 +108,7 @@ public class PGPrestamosDAO implements PrestamosDAO {
     }
 
     @Override
-    public List<Prestamos> All() throws DAOException {
+    public List<Prestamos> All() throws Excepciones {
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<Prestamos> a = new ArrayList<>();
@@ -119,15 +118,15 @@ public class PGPrestamosDAO implements PrestamosDAO {
             while (rs.next()){
                 a.add(CrearInstancia(rs));
             }
-        } catch (Exception e) {
-            throw new DAOException("Error es la sentencia SQL", e);
+        } catch (java.lang.Exception e) {
+            throw new Excepciones("Error es la sentencia SQL", e);
         } finally {
             if (rs != null || ps != null) {
                 try {
                     rs.close();
                     ps.close();
-                }catch (Exception e) {
-                    throw new DAOException("No ha podido cerrar correctamente");
+                }catch (java.lang.Exception e) {
+                    throw new Excepciones("No ha podido cerrar correctamente");
                 }
             }
         }
@@ -135,7 +134,7 @@ public class PGPrestamosDAO implements PrestamosDAO {
     }
 
     @Override
-    public Prestamos Buscar(Prestamos.PKPres id) throws DAOException {
+    public Prestamos Buscar(Prestamos.PKPres id) throws Excepciones {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Prestamos a = null;
@@ -146,17 +145,17 @@ public class PGPrestamosDAO implements PrestamosDAO {
             if (rs.next()) {
                 a = CrearInstancia(rs);
             } else {
-                throw new DAOException("No se han encontrado el registro");
+                throw new Excepciones("No se han encontrado el registro");
             }
-        } catch (Exception e) {
-            throw new DAOException("Error es la sentencia SQL", e);
+        } catch (java.lang.Exception e) {
+            throw new Excepciones("Error es la sentencia SQL", e);
         } finally {
             if (rs != null || ps != null) {
                 try {
                     rs.close();
                     ps.close();
-                }catch (Exception e) {
-                    throw new DAOException("No ha podido cerrar correctamente");
+                }catch (java.lang.Exception e) {
+                    throw new Excepciones("No ha podido cerrar correctamente");
                 }
             }
         }

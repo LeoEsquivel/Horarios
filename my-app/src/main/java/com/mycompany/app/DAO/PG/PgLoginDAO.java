@@ -1,8 +1,7 @@
 package com.mycompany.app.DAO.PG;
 
-import com.mycompany.app.DAO.DAOException;
+import com.mycompany.app.Excepciones.Excepciones;
 import com.mycompany.app.DAO.LoginDAO;
-import com.mycompany.app.Modelo.Grupo;
 import com.mycompany.app.Modelo.Login;
 
 import java.sql.Connection;
@@ -27,7 +26,7 @@ public class PgLoginDAO implements LoginDAO {
     }
 
     @Override
-    public void Insertar(Login p) throws DAOException {
+    public void Insertar(Login p) throws Excepciones {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(INSERT);
@@ -35,23 +34,23 @@ public class PgLoginDAO implements LoginDAO {
             ps.setString(2, p.getPass_usuario());
             ps.setString(3, p.getTipo_usuario());
             if (ps.executeUpdate() == 0) {
-                throw new DAOException("La informacion es posible que no se haya guardado");
+                throw new Excepciones("La informacion es posible que no se haya guardado");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en la sentencia SQL", e);
+            throw new Excepciones("Error en la sentencia SQL", e);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    throw new DAOException("Error al cerrar", e);
+                    throw new Excepciones("Error al cerrar", e);
                 }
             }
         }
     }
 
     @Override
-    public void Modificar(Login p) throws DAOException {
+    public void Modificar(Login p) throws Excepciones {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(UPDATE);
@@ -60,38 +59,38 @@ public class PgLoginDAO implements LoginDAO {
             ps.setString(3, p.getTipo_usuario());
             ps.setString(4, p.getTipo_usuario());
             if (ps.executeUpdate() == 0) {
-                throw new DAOException("La informacion es posible que no se haya guardado");
+                throw new Excepciones("La informacion es posible que no se haya guardado");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en la sentencia SQL", e);
+            throw new Excepciones("Error en la sentencia SQL", e);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    throw new DAOException("Error al cerrar", e);
+                    throw new Excepciones("Error al cerrar", e);
                 }
             }
         }
     }
 
     @Override
-    public void Eliminar(Login p) throws DAOException {
+    public void Eliminar(Login p) throws Excepciones {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(DELETE);
             ps.setString(1, p.getClv_usuario());
             if (ps.executeUpdate() == 0) {
-                throw new DAOException("La informacion es posible que no se haya guardado");
+                throw new Excepciones("La informacion es posible que no se haya guardado");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en la sentencia SQL", e);
+            throw new Excepciones("Error en la sentencia SQL", e);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    throw new DAOException("Error al cerrar", e);
+                    throw new Excepciones("Error al cerrar", e);
                 }
             }
         }
@@ -106,7 +105,7 @@ public class PgLoginDAO implements LoginDAO {
     }
 
     @Override
-    public List<Login> All() throws DAOException {
+    public List<Login> All() throws Excepciones {
         PreparedStatement ps = null;
         ResultSet rs = null;
         ArrayList<Login> l = new ArrayList<>();
@@ -116,17 +115,17 @@ public class PgLoginDAO implements LoginDAO {
             if (rs.next()) {
                 CrearInstancia(rs);
             } else {
-                throw new DAOException("No se han encontrado el registro");
+                throw new Excepciones("No se han encontrado el registro");
             }
-        } catch (Exception e) {
-            throw new DAOException("Error es la sentencia SQL", e);
+        } catch (java.lang.Exception e) {
+            throw new Excepciones("Error es la sentencia SQL", e);
         } finally {
             if (rs != null || ps != null) {
                 try {
                     rs.close();
                     ps.close();
-                }catch (Exception e) {
-                    throw new DAOException("No ha podido cerrar correctamente");
+                }catch (java.lang.Exception e) {
+                    throw new Excepciones("No ha podido cerrar correctamente");
                 }
             }
         }
@@ -134,7 +133,7 @@ public class PgLoginDAO implements LoginDAO {
     }
 
     @Override
-    public Login Buscar(String id) throws DAOException {
+    public Login Buscar(String id) throws Excepciones {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Login l = null;
@@ -145,17 +144,17 @@ public class PgLoginDAO implements LoginDAO {
             if (rs.next()) {
                 l = CrearInstancia(rs);
             } else {
-                throw new DAOException("No se han encontrado el registro");
+                throw new Excepciones("No se han encontrado el registro");
             }
-        } catch (Exception e) {
-            throw new DAOException("Error es la sentencia SQL", e);
+        } catch (java.lang.Exception e) {
+            throw new Excepciones("Error es la sentencia SQL", e);
         } finally {
             if (rs != null || ps != null) {
                 try {
                     rs.close();
                     ps.close();
-                }catch (Exception e) {
-                    throw new DAOException("No ha podido cerrar correctamente");
+                }catch (java.lang.Exception e) {
+                    throw new Excepciones("No ha podido cerrar correctamente");
                 }
             }
         }

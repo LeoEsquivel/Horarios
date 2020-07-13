@@ -4,9 +4,9 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.mycompany.app</groupId>
-  <artifactId>my-app</artifactId>
-  <version>ObtenerDatosv0.0.1Alpha</version>
+  <groupId>com.lyon.app</groupId>
+  <artifactId>DataObtain</artifactId>
+  <version>ObtenerDatosv0.1.0Beta</version>
 
   <name>my-app</name>
   <!-- FIXME change it to the project's website -->

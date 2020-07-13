@@ -1,8 +1,7 @@
 package com.mycompany.app.DAO.PG;
 
-import com.mycompany.app.DAO.DAOException;
+import com.mycompany.app.Excepciones.Excepciones;
 import com.mycompany.app.DAO.UsoAulaGrupoDAO;
-import com.mycompany.app.Modelo.Disponibilidad;
 import com.mycompany.app.Modelo.UsoAulaGrupo;
 
 import java.sql.Connection;
@@ -26,7 +25,7 @@ public class PGUsoAulaGrupoDAO implements UsoAulaGrupoDAO {
     }
 
     @Override
-    public void Insertar(UsoAulaGrupo p) throws DAOException {
+    public void Insertar(UsoAulaGrupo p) throws Excepciones {
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(INSERT);
@@ -36,23 +35,23 @@ public class PGUsoAulaGrupoDAO implements UsoAulaGrupoDAO {
             ps.setString(4, p.getPkUag().getClv_grupo());
             ps.setString(5, p.getPkUag().getClv_materia());
             if(ps.executeUpdate()== 0){
-                throw new DAOException("Es posible que los datos no hayan sido guardaos.");
+                throw new Excepciones("Es posible que los datos no hayan sido guardaos.");
             }
-        }catch (Exception e){
-            throw new DAOException("Error en la sentencia SQL", e);
+        }catch (java.lang.Exception e){
+            throw new Excepciones("Error en la sentencia SQL", e);
         }finally {
             if (ps != null){
                 try {
                     ps.close();
-                } catch (Exception e) {
-                    throw new DAOException("Error al cerrar.", e);
+                } catch (java.lang.Exception e) {
+                    throw new Excepciones("Error al cerrar.", e);
                 }
             }
         }
     }
 
     @Override
-    public void Modificar(UsoAulaGrupo p) throws DAOException {
+    public void Modificar(UsoAulaGrupo p) throws Excepciones {
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(UPDATE);
@@ -68,23 +67,23 @@ public class PGUsoAulaGrupoDAO implements UsoAulaGrupoDAO {
             ps.setString(9, p.getPkUag().getClv_grupo());
             ps.setString(10, p.getPkUag().getClv_materia());
             if(ps.executeUpdate()== 0){
-                throw new DAOException("Es posible que los datos no hayan sido guardaos.");
+                throw new Excepciones("Es posible que los datos no hayan sido guardaos.");
             }
-        }catch (Exception e){
-            throw new DAOException("Error en la sentencia SQL", e);
+        }catch (java.lang.Exception e){
+            throw new Excepciones("Error en la sentencia SQL", e);
         }finally {
             if (ps != null){
                 try {
                     ps.close();
-                } catch (Exception e) {
-                    throw new DAOException("Error al cerrar.", e);
+                } catch (java.lang.Exception e) {
+                    throw new Excepciones("Error al cerrar.", e);
                 }
             }
         }
     }
 
     @Override
-    public void Eliminar(UsoAulaGrupo p) throws DAOException {
+    public void Eliminar(UsoAulaGrupo p) throws Excepciones {
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(DELETE);
@@ -94,16 +93,16 @@ public class PGUsoAulaGrupoDAO implements UsoAulaGrupoDAO {
             ps.setString(4, p.getPkUag().getClv_grupo());
             ps.setString(5, p.getPkUag().getClv_materia());
             if(ps.executeUpdate()== 0){
-                throw new DAOException("Es posible que los datos no hayan sido guardaos.");
+                throw new Excepciones("Es posible que los datos no hayan sido guardaos.");
             }
-        }catch (Exception e){
-            throw new DAOException("Error en la sentencia SQL", e);
+        }catch (java.lang.Exception e){
+            throw new Excepciones("Error en la sentencia SQL", e);
         }finally {
             if (ps != null){
                 try {
                     ps.close();
-                } catch (Exception e) {
-                    throw new DAOException("Error al cerrar.", e);
+                } catch (java.lang.Exception e) {
+                    throw new Excepciones("Error al cerrar.", e);
                 }
             }
         }
@@ -123,7 +122,7 @@ public class PGUsoAulaGrupoDAO implements UsoAulaGrupoDAO {
     }
 
     @Override
-    public List<UsoAulaGrupo> All() throws DAOException {
+    public List<UsoAulaGrupo> All() throws Excepciones {
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<UsoAulaGrupo> a = new ArrayList<>();
@@ -133,15 +132,15 @@ public class PGUsoAulaGrupoDAO implements UsoAulaGrupoDAO {
             while (rs.next()){
                 a.add(CrearInstancia(rs));
             }
-        } catch (Exception e) {
-            throw new DAOException("Error es la sentencia SQL", e);
+        } catch (java.lang.Exception e) {
+            throw new Excepciones("Error es la sentencia SQL", e);
         } finally {
             if (rs != null || ps != null) {
                 try {
                     rs.close();
                     ps.close();
-                }catch (Exception e) {
-                    throw new DAOException("No ha podido cerrar correctamente");
+                }catch (java.lang.Exception e) {
+                    throw new Excepciones("No ha podido cerrar correctamente");
                 }
             }
         }
@@ -149,7 +148,7 @@ public class PGUsoAulaGrupoDAO implements UsoAulaGrupoDAO {
     }
 
     @Override
-    public UsoAulaGrupo Buscar(UsoAulaGrupo.PKUag id) throws DAOException {
+    public UsoAulaGrupo Buscar(UsoAulaGrupo.PKUag id) throws Excepciones {
         PreparedStatement ps = null;
         ResultSet rs = null;
         UsoAulaGrupo a = null;
@@ -160,17 +159,17 @@ public class PGUsoAulaGrupoDAO implements UsoAulaGrupoDAO {
             if (rs.next()) {
                 a = CrearInstancia(rs);
             } else {
-                throw new DAOException("No se han encontrado el registro");
+                throw new Excepciones("No se han encontrado el registro");
             }
-        } catch (Exception e) {
-            throw new DAOException("Error es la sentencia SQL", e);
+        } catch (java.lang.Exception e) {
+            throw new Excepciones("Error es la sentencia SQL", e);
         } finally {
             if (rs != null || ps != null) {
                 try {
                     rs.close();
                     ps.close();
-                }catch (Exception e) {
-                    throw new DAOException("No ha podido cerrar correctamente");
+                }catch (java.lang.Exception e) {
+                    throw new Excepciones("No ha podido cerrar correctamente");
                 }
             }
         }

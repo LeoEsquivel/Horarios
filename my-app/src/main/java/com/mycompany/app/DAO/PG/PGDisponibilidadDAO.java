@@ -1,9 +1,8 @@
 package com.mycompany.app.DAO.PG;
 
-import com.mycompany.app.DAO.DAOException;
+import com.mycompany.app.Excepciones.Excepciones;
 import com.mycompany.app.DAO.DisponibilidadDAO;
 import com.mycompany.app.Modelo.Disponibilidad;
-import com.mycompany.app.Modelo.MateriaUsuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,7 +26,7 @@ public class PGDisponibilidadDAO implements DisponibilidadDAO {
     }
 
     @Override
-    public void Insertar(Disponibilidad p) throws DAOException {
+    public void Insertar(Disponibilidad p) throws Excepciones {
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(INSERT);
@@ -35,23 +34,23 @@ public class PGDisponibilidadDAO implements DisponibilidadDAO {
             ps.setInt(2, p.getId().getEspacio_tiempo());
             ps.setString(3, p.getId().getClv_usuario());
             if(ps.executeUpdate()== 0){
-                throw new DAOException("Es posible que los datos no hayan sido guardaos.");
+                throw new Excepciones("Es posible que los datos no hayan sido guardaos.");
             }
-        }catch (Exception e){
-            throw new DAOException("Error en la sentencia SQL", e);
+        }catch (java.lang.Exception e){
+            throw new Excepciones("Error en la sentencia SQL", e);
         }finally {
             if (ps != null){
                 try {
                     ps.close();
-                } catch (Exception e) {
-                    throw new DAOException("Error al cerrar.", e);
+                } catch (java.lang.Exception e) {
+                    throw new Excepciones("Error al cerrar.", e);
                 }
             }
         }
     }
 
     @Override
-    public void Modificar(Disponibilidad p) throws DAOException {
+    public void Modificar(Disponibilidad p) throws Excepciones {
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(UPDATE);
@@ -62,23 +61,23 @@ public class PGDisponibilidadDAO implements DisponibilidadDAO {
             ps.setInt(5, p.getId().getEspacio_tiempo());
             ps.setString(6, p.getId().getClv_usuario());
             if(ps.executeUpdate()== 0){
-                throw new DAOException("Es posible que los datos no hayan sido guardaos.");
+                throw new Excepciones("Es posible que los datos no hayan sido guardaos.");
             }
-        }catch (Exception e){
-            throw new DAOException("Error en la sentencia SQL", e);
+        }catch (java.lang.Exception e){
+            throw new Excepciones("Error en la sentencia SQL", e);
         }finally {
             if (ps != null){
                 try {
                     ps.close();
-                } catch (Exception e) {
-                    throw new DAOException("Error al cerrar.", e);
+                } catch (java.lang.Exception e) {
+                    throw new Excepciones("Error al cerrar.", e);
                 }
             }
         }
     }
 
     @Override
-    public void Eliminar(Disponibilidad p) throws DAOException {
+    public void Eliminar(Disponibilidad p) throws Excepciones {
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(DELETE);
@@ -86,16 +85,16 @@ public class PGDisponibilidadDAO implements DisponibilidadDAO {
             ps.setInt(2, p.getId().getEspacio_tiempo());
             ps.setString(3, p.getId().getClv_usuario());
             if(ps.executeUpdate()== 0){
-                throw new DAOException("Es posible que los datos no hayan sido guardaos.");
+                throw new Excepciones("Es posible que los datos no hayan sido guardaos.");
             }
-        }catch (Exception e){
-            throw new DAOException("Error en la sentencia SQL", e);
+        }catch (java.lang.Exception e){
+            throw new Excepciones("Error en la sentencia SQL", e);
         }finally {
             if (ps != null){
                 try {
                     ps.close();
-                } catch (Exception e) {
-                    throw new DAOException("Error al cerrar.", e);
+                } catch (java.lang.Exception e) {
+                    throw new Excepciones("Error al cerrar.", e);
                 }
             }
         }
@@ -112,7 +111,7 @@ public class PGDisponibilidadDAO implements DisponibilidadDAO {
     }
 
     @Override
-    public List<Disponibilidad> All() throws DAOException {
+    public List<Disponibilidad> All() throws Excepciones {
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<Disponibilidad> a = new ArrayList<>();
@@ -122,15 +121,15 @@ public class PGDisponibilidadDAO implements DisponibilidadDAO {
             while (rs.next()){
                 a.add(CrearInstancia(rs));
             }
-        } catch (Exception e) {
-            throw new DAOException("Error es la sentencia SQL", e);
+        } catch (java.lang.Exception e) {
+            throw new Excepciones("Error es la sentencia SQL", e);
         } finally {
             if (rs != null || ps != null) {
                 try {
                     rs.close();
                     ps.close();
-                }catch (Exception e) {
-                    throw new DAOException("No ha podido cerrar correctamente");
+                }catch (java.lang.Exception e) {
+                    throw new Excepciones("No ha podido cerrar correctamente");
                 }
             }
         }
@@ -138,7 +137,7 @@ public class PGDisponibilidadDAO implements DisponibilidadDAO {
     }
 
     @Override
-    public Disponibilidad Buscar(Disponibilidad.PKDis id) throws DAOException {
+    public Disponibilidad Buscar(Disponibilidad.PKDis id) throws Excepciones {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Disponibilidad a = null;
@@ -149,17 +148,17 @@ public class PGDisponibilidadDAO implements DisponibilidadDAO {
             if (rs.next()) {
                 a = CrearInstancia(rs);
             } else {
-                throw new DAOException("No se han encontrado el registro");
+                throw new Excepciones("No se han encontrado el registro");
             }
-        } catch (Exception e) {
-            throw new DAOException("Error es la sentencia SQL", e);
+        } catch (java.lang.Exception e) {
+            throw new Excepciones("Error es la sentencia SQL", e);
         } finally {
             if (rs != null || ps != null) {
                 try {
                     rs.close();
                     ps.close();
-                }catch (Exception e) {
-                    throw new DAOException("No ha podido cerrar correctamente");
+                }catch (java.lang.Exception e) {
+                    throw new Excepciones("No ha podido cerrar correctamente");
                 }
             }
         }

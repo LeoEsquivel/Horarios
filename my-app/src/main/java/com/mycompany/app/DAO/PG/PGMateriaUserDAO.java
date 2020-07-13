@@ -1,8 +1,7 @@
 package com.mycompany.app.DAO.PG;
 
-import com.mycompany.app.DAO.DAOException;
+import com.mycompany.app.Excepciones.Excepciones;
 import com.mycompany.app.DAO.MateriaUsuarioDAO;
-import com.mycompany.app.Modelo.Aula;
 import com.mycompany.app.Modelo.MateriaUsuario;
 
 import java.sql.Connection;
@@ -27,7 +26,7 @@ public class PGMateriaUserDAO implements MateriaUsuarioDAO {
     }
 
     @Override
-    public void Insertar(MateriaUsuario p) throws DAOException {
+    public void Insertar(MateriaUsuario p) throws Excepciones {
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(INSERT);
@@ -37,23 +36,23 @@ public class PGMateriaUserDAO implements MateriaUsuarioDAO {
             ps.setInt(4, p.getPuntos_confianza());
             ps.setInt(5, p.getPuntos_director());
             if(ps.executeUpdate()== 0){
-                throw new DAOException("Es posible que los datos no hayan sido guardaos.");
+                throw new Excepciones("Es posible que los datos no hayan sido guardaos.");
             }
-        }catch (Exception e){
-            throw new DAOException("Error en la sentencia SQL", e);
+        }catch (java.lang.Exception e){
+            throw new Excepciones("Error en la sentencia SQL", e);
         }finally {
             if (ps != null){
                 try {
                     ps.close();
-                } catch (Exception e) {
-                    throw new DAOException("Error al cerrar.", e);
+                } catch (java.lang.Exception e) {
+                    throw new Excepciones("Error al cerrar.", e);
                 }
             }
         }
     }
 
     @Override
-    public void Modificar(MateriaUsuario p) throws DAOException {
+    public void Modificar(MateriaUsuario p) throws Excepciones {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(UPDATE);
@@ -66,23 +65,23 @@ public class PGMateriaUserDAO implements MateriaUsuarioDAO {
             ps.setString(7, p.getPkMatU().getClv_plan());
             ps.setString(8, p.getPkMatU().getClv_usuario());
             if(ps.executeUpdate() == 0){
-                throw new DAOException("Es posible que los datos no se hayan guardado correctamente");
+                throw new Excepciones("Es posible que los datos no se hayan guardado correctamente");
             }
-        }catch (Exception e){
-            throw new DAOException("Error en la sentencia SQL", e);
+        }catch (java.lang.Exception e){
+            throw new Excepciones("Error en la sentencia SQL", e);
         }finally {
             if(ps != null){
                 try {
                     ps.close();
-                } catch (Exception e) {
-                    throw new DAOException("Error al cerrar");
+                } catch (java.lang.Exception e) {
+                    throw new Excepciones("Error al cerrar");
                 }
             }
         }
     }
 
     @Override
-    public void Eliminar(MateriaUsuario p) throws DAOException {
+    public void Eliminar(MateriaUsuario p) throws Excepciones {
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(DELETE);
@@ -90,16 +89,16 @@ public class PGMateriaUserDAO implements MateriaUsuarioDAO {
             ps.setString(2, p.getPkMatU().getClv_plan());
             ps.setString(3, p.getPkMatU().getClv_usuario());
             if (ps.executeUpdate() == 0) {
-                throw new DAOException("Es posible que los datos no se hayan guardado correctamente.");
+                throw new Excepciones("Es posible que los datos no se hayan guardado correctamente.");
             }
-        }catch (Exception e){
-            throw new DAOException("Error en la sentencia SQL", e);
+        }catch (java.lang.Exception e){
+            throw new Excepciones("Error en la sentencia SQL", e);
         }finally {
             if(ps!= null){
                 try {
                     ps.close();
-                } catch (Exception e) {
-                    throw new DAOException("Error al cerrar");
+                } catch (java.lang.Exception e) {
+                    throw new Excepciones("Error al cerrar");
                 }
             }
         }
@@ -121,7 +120,7 @@ public class PGMateriaUserDAO implements MateriaUsuarioDAO {
     }
 
     @Override
-    public List<MateriaUsuario> All() throws DAOException {
+    public List<MateriaUsuario> All() throws Excepciones {
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<MateriaUsuario> a = new ArrayList<>();
@@ -131,15 +130,15 @@ public class PGMateriaUserDAO implements MateriaUsuarioDAO {
             while (rs.next()){
                 a.add(CrearInstancia(rs));
             }
-        } catch (Exception e) {
-            throw new DAOException("Error es la sentencia SQL", e);
+        } catch (java.lang.Exception e) {
+            throw new Excepciones("Error es la sentencia SQL", e);
         } finally {
             if (rs != null || ps != null) {
                 try {
                     rs.close();
                     ps.close();
-                }catch (Exception e) {
-                    throw new DAOException("No ha podido cerrar correctamente");
+                }catch (java.lang.Exception e) {
+                    throw new Excepciones("No ha podido cerrar correctamente");
                 }
             }
         }
@@ -147,7 +146,7 @@ public class PGMateriaUserDAO implements MateriaUsuarioDAO {
     }
 
     @Override
-    public MateriaUsuario Buscar(MateriaUsuario.PKMatU id) throws DAOException {
+    public MateriaUsuario Buscar(MateriaUsuario.PKMatU id) throws Excepciones {
         PreparedStatement ps = null;
         ResultSet rs = null;
         MateriaUsuario a = null;
@@ -158,17 +157,17 @@ public class PGMateriaUserDAO implements MateriaUsuarioDAO {
             if (rs.next()) {
                 a = CrearInstancia(rs);
             } else {
-                throw new DAOException("No se han encontrado el registro");
+                throw new Excepciones("No se han encontrado el registro");
             }
-        } catch (Exception e) {
-            throw new DAOException("Error es la sentencia SQL", e);
+        } catch (java.lang.Exception e) {
+            throw new Excepciones("Error es la sentencia SQL", e);
         } finally {
             if (rs != null || ps != null) {
                 try {
                     rs.close();
                     ps.close();
-                }catch (Exception e) {
-                    throw new DAOException("No ha podido cerrar correctamente");
+                }catch (java.lang.Exception e) {
+                    throw new Excepciones("No ha podido cerrar correctamente");
                 }
             }
         }

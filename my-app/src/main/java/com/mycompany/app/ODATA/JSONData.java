@@ -8,32 +8,36 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.*;
+import java.sql.Connection;
 import java.util.ArrayList;
 
-public class JSONData extends Conexion {
-    public void LeerJson(File JsonArch){
+public class JSONData {
+    public void LeerJson(File JsonArch, File config){
 
-        DAO daoAula = new PGAulaDAO(getCon());
-        DAO daoAE = new PGAulaEquipoDAO(getCon());
-        DAO daoCarr = new PGCarreraDAO(getCon());
-        DAO daoCatE = new PGCategoriasEquipoDAO(getCon());
-        DAO daoDis = new PGDisponibilidadDAO(getCon());
-        DAO daoEquipo = new PGEquipoDAO(getCon());
-        DAO daoGrup = new PGGrupoDAO(getCon());
-        DAO daoGMP = new PGGmpDAO(getCon());
-        DAO daoLogin = new PgLoginDAO(getCon());
-        DAO daoMat = new PGMateriaDAO(getCon());
-        DAO daoMatUser = new PGMateriaUserDAO(getCon());
-        DAO daoPE = new PGPlanEstudiosDAO(getCon());
-        DAO daoPres = new PGPrestamosDAO(getCon());
-        DAO daoprof = new PGProfesorDAO(getCon());
-        DAO daoUag = new PGUsoAulaGrupoDAO(getCon());
+        Conexion con = Conexion.getInstance(config);
+
+        DAO daoAula = new PGAulaDAO(con.getCon());
+        DAO daoCarr = new PGCarreraDAO(con.getCon());
+        DAO daoCatE = new PGCategoriasEquipoDAO(con.getCon());
+        DAO daoDis = new PGDisponibilidadDAO(con.getCon());
+        DAO daoEquipo = new PGEquipoDAO(con.getCon());
+        DAO daoGrup = new PGGrupoDAO(con.getCon());
+        DAO daoGMP = new PGGmpDAO(con.getCon());
+        DAO daoLogin = new PgLoginDAO(con.getCon());
+        DAO daoMat = new PGMateriaDAO(con.getCon());
+        DAO daoMatUser = new PGMateriaUserDAO(con.getCon());
+        DAO daoPE = new PGPlanEstudiosDAO(con.getCon());
+        DAO daoPres = new PGPrestamosDAO(con.getCon());
+        DAO daoprof = new PGProfesorDAO(con.getCon());
+        DAO daoUag = new PGUsoAulaGrupoDAO(con.getCon());
+        DAO daoAE = new PGAulaEquipoDAO(con.getCon());
 
         ArrayList<JSONObject> json = new ArrayList<JSONObject>();
         JSONObject obj;
         String linea = null;
 
         try {
+            System.out.println(JsonArch.getPath());
             FileReader fileReader = new FileReader(JsonArch);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
@@ -59,6 +63,7 @@ public class JSONData extends Conexion {
                             obj.get("descripcion").toString(),
                             obj.get("ubicacion").toString()
                     );
+                    System.out.println(a.getNombre());
                     daoAula.Insertar(a);
 
                 }else if(obj.get("Tipo").toString().equals("AulaEquipo")){

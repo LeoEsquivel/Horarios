@@ -1,6 +1,6 @@
 package com.mycompany.app.DAO.PG;
 
-import com.mycompany.app.DAO.DAOException;
+import com.mycompany.app.Excepciones.Excepciones;
 import com.mycompany.app.DAO.EquipoDAO;
 import com.mycompany.app.Modelo.Equipo;
 
@@ -26,7 +26,7 @@ public class PGEquipoDAO implements EquipoDAO {
     }
 
     @Override
-    public void Insertar(Equipo p) throws DAOException {
+    public void Insertar(Equipo p) throws Excepciones {
         System.out.println("HOLA");
         PreparedStatement ps = null;
         try {
@@ -36,23 +36,23 @@ public class PGEquipoDAO implements EquipoDAO {
             ps.setString(3, p.getNombre());
             ps.setString(4, p.getDescripcion());
             if (ps.executeUpdate() == 0) {
-                throw new DAOException("La informacion es posible que no se haya guardado");
+                throw new Excepciones("La informacion es posible que no se haya guardado");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en la sentencia SQL", e);
+            throw new Excepciones("Error en la sentencia SQL", e);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    throw new DAOException("Error al cerrar", e);
+                    throw new Excepciones("Error al cerrar", e);
                 }
             }
         }
     }
 
     @Override
-    public void Modificar(Equipo p) throws DAOException {
+    public void Modificar(Equipo p) throws Excepciones {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(UPDATE);
@@ -62,16 +62,16 @@ public class PGEquipoDAO implements EquipoDAO {
             ps.setString(4, p.getDescripcion());
                ps.setInt(5, p.getId());
             if (ps.executeUpdate() == 0) {
-                throw new DAOException("La informacion es posible que no se haya guardado");
+                throw new Excepciones("La informacion es posible que no se haya guardado");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en la sentencia SQL", e);
+            throw new Excepciones("Error en la sentencia SQL", e);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    throw new DAOException("Error al cerrar", e);
+                    throw new Excepciones("Error al cerrar", e);
                 }
             }
 
@@ -79,22 +79,22 @@ public class PGEquipoDAO implements EquipoDAO {
     }
 
     @Override
-    public void Eliminar(Equipo p) throws DAOException {
+    public void Eliminar(Equipo p) throws Excepciones {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(DELETE);
             ps.setInt(1, p.getId());
             if (ps.executeUpdate() == 0) {
-                throw new DAOException("La informacion es posible que no se haya guardado");
+                throw new Excepciones("La informacion es posible que no se haya guardado");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en la sentencia SQL", e);
+            throw new Excepciones("Error en la sentencia SQL", e);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    throw new DAOException("Error al cerrar", e);
+                    throw new Excepciones("Error al cerrar", e);
                 }
             }
         }
@@ -111,7 +111,7 @@ public class PGEquipoDAO implements EquipoDAO {
     }
 
     @Override
-    public List<Equipo> All() throws DAOException {
+    public List<Equipo> All() throws Excepciones {
         PreparedStatement ps = null;
         ResultSet rs = null;
         ArrayList<Equipo> eq = new ArrayList<>();
@@ -121,15 +121,15 @@ public class PGEquipoDAO implements EquipoDAO {
             while (rs.next()){
                 eq.add(CrearInstancia(rs));
             }
-        } catch (Exception e) {
-            throw new DAOException("Error es la sentencia SQL", e);
+        } catch (java.lang.Exception e) {
+            throw new Excepciones("Error es la sentencia SQL", e);
         } finally {
             if (rs != null || ps != null) {
                 try {
                     rs.close();
                     ps.close();
-                }catch (Exception e) {
-                    throw new DAOException("No ha podido cerrar correctamente");
+                }catch (java.lang.Exception e) {
+                    throw new Excepciones("No ha podido cerrar correctamente");
                 }
             }
         }
@@ -137,7 +137,7 @@ public class PGEquipoDAO implements EquipoDAO {
     }
 
     @Override
-    public Equipo Buscar(Integer id) throws DAOException {
+    public Equipo Buscar(Integer id) throws Excepciones {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Equipo eq = null;
@@ -148,17 +148,17 @@ public class PGEquipoDAO implements EquipoDAO {
             if (rs.next()) {
                 eq = CrearInstancia(rs);
             } else {
-                throw new DAOException("No se han encontrado el registro");
+                throw new Excepciones("No se han encontrado el registro");
             }
-        } catch (Exception e) {
-            throw new DAOException("Error es la sentencia SQL", e);
+        } catch (java.lang.Exception e) {
+            throw new Excepciones("Error es la sentencia SQL", e);
         } finally {
             if (rs != null || ps != null) {
                 try {
                     rs.close();
                     ps.close();
-                }catch (Exception e) {
-                    throw new DAOException("No ha podido cerrar correctamente");
+                }catch (java.lang.Exception e) {
+                    throw new Excepciones("No ha podido cerrar correctamente");
                 }
             }
         }

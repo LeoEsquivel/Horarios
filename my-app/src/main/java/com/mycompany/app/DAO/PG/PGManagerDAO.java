@@ -1,6 +1,7 @@
 package com.mycompany.app.DAO.PG;
 
 import com.mycompany.app.DAO.*;
+import com.mycompany.app.Excepciones.Excepciones;
 import com.mycompany.app.Modelo.CategoriasEquipo;
 
 import java.sql.*;
@@ -38,7 +39,7 @@ public class PGManagerDAO implements DAOManager{
                  System.out.println("Conexion realizada");
                  st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
              }
-         } catch (Exception e) {
+         } catch (java.lang.Exception e) {
              e.printStackTrace();
          }
      }
@@ -162,7 +163,7 @@ public class PGManagerDAO implements DAOManager{
         return usoAulaGrupos;
     }
 
-    public static void main3(String[] args) throws SQLException, DAOException {
+    public static void main3(String[] args) throws SQLException, Excepciones {
         PGManagerDAO man = new PGManagerDAO(con);
         System.out.println("Paso 1");
         //Equipo e = new Equipo(12,1,"Mesa","Mesa de madera");

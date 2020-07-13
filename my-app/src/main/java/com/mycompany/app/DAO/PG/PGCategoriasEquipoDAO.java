@@ -1,9 +1,8 @@
 package com.mycompany.app.DAO.PG;
 
 import com.mycompany.app.DAO.CategoriasEquipoDAO;
-import com.mycompany.app.DAO.DAOException;
+import com.mycompany.app.Excepciones.Excepciones;
 import com.mycompany.app.Modelo.CategoriasEquipo;
-import com.mycompany.app.Modelo.Profesor;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public class PGCategoriasEquipoDAO implements CategoriasEquipoDAO {
     }
 
     @Override
-    public void Insertar(CategoriasEquipo p) throws DAOException {
+    public void Insertar(CategoriasEquipo p) throws Excepciones {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(INSERT);
@@ -32,16 +31,16 @@ public class PGCategoriasEquipoDAO implements CategoriasEquipoDAO {
             ps.setString(2, p.getNombre());
             ps.setString(3, p.getDescripcion());
             if (ps.executeUpdate() == 0) {
-                throw new DAOException("La informacion es posible que no se haya guardado");
+                throw new Excepciones("La informacion es posible que no se haya guardado");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en la sentencia SQL", e);
+            throw new Excepciones("Error en la sentencia SQL", e);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    throw new DAOException("Error al cerrar", e);
+                    throw new Excepciones("Error al cerrar", e);
                 }
             }
 
@@ -49,7 +48,7 @@ public class PGCategoriasEquipoDAO implements CategoriasEquipoDAO {
     }
 
     @Override
-    public void Modificar(CategoriasEquipo p) throws DAOException {
+    public void Modificar(CategoriasEquipo p) throws Excepciones {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(UPDATE);
@@ -58,16 +57,16 @@ public class PGCategoriasEquipoDAO implements CategoriasEquipoDAO {
             ps.setString(3, p.getDescripcion());
                ps.setInt(4, p.getId_categoria());
             if (ps.executeUpdate() == 0) {
-                throw new DAOException("La informacion es posible que no se haya guardado");
+                throw new Excepciones("La informacion es posible que no se haya guardado");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en la sentencia SQL", e);
+            throw new Excepciones("Error en la sentencia SQL", e);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    throw new DAOException("Error al cerrar", e);
+                    throw new Excepciones("Error al cerrar", e);
                 }
             }
 
@@ -75,22 +74,22 @@ public class PGCategoriasEquipoDAO implements CategoriasEquipoDAO {
     }
 
     @Override
-    public void Eliminar(CategoriasEquipo p) throws DAOException {
+    public void Eliminar(CategoriasEquipo p) throws Excepciones {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(DELETE);
             ps.setInt(1, p.getId_categoria());
             if (ps.executeUpdate() == 0) {
-                throw new DAOException("La informacion es posible que no se haya guardado");
+                throw new Excepciones("La informacion es posible que no se haya guardado");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en la sentencia SQL", e);
+            throw new Excepciones("Error en la sentencia SQL", e);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    throw new DAOException("Error al cerrar", e);
+                    throw new Excepciones("Error al cerrar", e);
                 }
             }
         }
@@ -105,7 +104,7 @@ public class PGCategoriasEquipoDAO implements CategoriasEquipoDAO {
     }
 
     @Override
-    public List<CategoriasEquipo> All() throws DAOException {
+    public List<CategoriasEquipo> All() throws Excepciones {
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<CategoriasEquipo> c = new ArrayList<>();
@@ -114,15 +113,15 @@ public class PGCategoriasEquipoDAO implements CategoriasEquipoDAO {
             while (rs.next()){
                 c.add(CrearInstancia(rs));
             }
-        } catch (Exception e) {
-            throw new DAOException("Error es la sentencia SQL", e);
+        } catch (java.lang.Exception e) {
+            throw new Excepciones("Error es la sentencia SQL", e);
         } finally {
             if (rs != null || ps != null) {
                 try {
                     rs.close();
                     ps.close();
-                }catch (Exception e) {
-                    throw new DAOException("No ha podido cerrar correctamente");
+                }catch (java.lang.Exception e) {
+                    throw new Excepciones("No ha podido cerrar correctamente");
                 }
             }
         }
@@ -130,7 +129,7 @@ public class PGCategoriasEquipoDAO implements CategoriasEquipoDAO {
     }
 
     @Override
-    public CategoriasEquipo Buscar(Integer id) throws DAOException {
+    public CategoriasEquipo Buscar(Integer id) throws Excepciones {
         PreparedStatement ps = null;
         ResultSet rs = null;
         CategoriasEquipo p = null;
@@ -141,17 +140,17 @@ public class PGCategoriasEquipoDAO implements CategoriasEquipoDAO {
             if (rs.next()) {
                 p = CrearInstancia(rs);
             } else {
-                throw new DAOException("No se han encontrado el registro");
+                throw new Excepciones("No se han encontrado el registro");
             }
-        } catch (Exception e) {
-            throw new DAOException("Error es la sentencia SQL", e);
+        } catch (java.lang.Exception e) {
+            throw new Excepciones("Error es la sentencia SQL", e);
         } finally {
             if (rs != null || ps != null) {
                 try {
                     rs.close();
                     ps.close();
-                }catch (Exception e) {
-                    throw new DAOException("No ha podido cerrar correctamente");
+                }catch (java.lang.Exception e) {
+                    throw new Excepciones("No ha podido cerrar correctamente");
                 }
             }
         }
@@ -166,7 +165,7 @@ public class PGCategoriasEquipoDAO implements CategoriasEquipoDAO {
             CategoriasEquipo ce = new CategoriasEquipo(2,"Equipo de computo", "ASDEFQWE");
             dao.Insertar(ce);
             System.out.println("Jalo");
-        }catch (Exception e){
+        }catch (java.lang.Exception e){
             e.printStackTrace();
         }
     }

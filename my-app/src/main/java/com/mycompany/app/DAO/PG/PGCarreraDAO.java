@@ -1,7 +1,7 @@
 package com.mycompany.app.DAO.PG;
 
 import com.mycompany.app.DAO.CarreraDAO;
-import com.mycompany.app.DAO.DAOException;
+import com.mycompany.app.Excepciones.Excepciones;
 import com.mycompany.app.Modelo.Carrera;
 
 import java.sql.Connection;
@@ -26,23 +26,23 @@ public class PGCarreraDAO implements CarreraDAO {
     }
 
     @Override
-    public void Insertar(Carrera p) throws DAOException {
+    public void Insertar(Carrera p) throws Excepciones {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(INSERT);
                ps.setInt(1, p.getIdcarrera());
             ps.setString(2, p.getNombre_carrera());
             if (ps.executeUpdate() == 0) {
-                throw new DAOException("La informacion es posible que no se haya guardado");
+                throw new Excepciones("La informacion es posible que no se haya guardado");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en la sentencia SQL", e);
+            throw new Excepciones("Error en la sentencia SQL", e);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    throw new DAOException("Error al cerrar", e);
+                    throw new Excepciones("Error al cerrar", e);
                 }
             }
 
@@ -50,7 +50,7 @@ public class PGCarreraDAO implements CarreraDAO {
     }
 
     @Override
-    public void Modificar(Carrera p) throws DAOException {
+    public void Modificar(Carrera p) throws Excepciones {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(UPDATE);
@@ -58,16 +58,16 @@ public class PGCarreraDAO implements CarreraDAO {
             ps.setString(2, p.getNombre_carrera());
             ps.setInt(3, p.getIdcarrera());
             if (ps.executeUpdate() == 0) {
-                throw new DAOException("La informacion es posible que no se haya guardado");
+                throw new Excepciones("La informacion es posible que no se haya guardado");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en la sentencia SQL", e);
+            throw new Excepciones("Error en la sentencia SQL", e);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    throw new DAOException("Error al cerrar", e);
+                    throw new Excepciones("Error al cerrar", e);
                 }
             }
 
@@ -75,22 +75,22 @@ public class PGCarreraDAO implements CarreraDAO {
     }
 
     @Override
-    public void Eliminar(Carrera p) throws DAOException {
+    public void Eliminar(Carrera p) throws Excepciones {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(DELETE);
             ps.setInt(1, p.getIdcarrera());
             if (ps.executeUpdate() == 0) {
-                throw new DAOException("La informacion es posible que no se haya guardado");
+                throw new Excepciones("La informacion es posible que no se haya guardado");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en la sentencia SQL", e);
+            throw new Excepciones("Error en la sentencia SQL", e);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    throw new DAOException("Error al cerrar", e);
+                    throw new Excepciones("Error al cerrar", e);
                 }
             }
 
@@ -105,7 +105,7 @@ public class PGCarreraDAO implements CarreraDAO {
     }
 
     @Override
-    public List<Carrera> All() throws DAOException {
+    public List<Carrera> All() throws Excepciones {
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<Carrera> c = new ArrayList<>();
@@ -115,17 +115,17 @@ public class PGCarreraDAO implements CarreraDAO {
             if (rs.next()) {
                 CrearInstancia(rs);
             } else {
-                throw new DAOException("No se han encontrado el registro");
+                throw new Excepciones("No se han encontrado el registro");
             }
-        } catch (Exception e) {
-            throw new DAOException("Error es la sentencia SQL", e);
+        } catch (java.lang.Exception e) {
+            throw new Excepciones("Error es la sentencia SQL", e);
         } finally {
             if (rs != null || ps != null) {
                 try {
                     rs.close();
                     ps.close();
-                }catch (Exception e) {
-                    throw new DAOException("No ha podido cerrar correctamente");
+                }catch (java.lang.Exception e) {
+                    throw new Excepciones("No ha podido cerrar correctamente");
                 }
             }
         }
@@ -133,7 +133,7 @@ public class PGCarreraDAO implements CarreraDAO {
     }
 
     @Override
-    public Carrera Buscar(Integer id) throws DAOException {
+    public Carrera Buscar(Integer id) throws Excepciones {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Carrera c = null;
@@ -144,17 +144,17 @@ public class PGCarreraDAO implements CarreraDAO {
             if (rs.next()) {
                 c = CrearInstancia(rs);
             } else {
-                throw new DAOException("No se han encontrado el registro");
+                throw new Excepciones("No se han encontrado el registro");
             }
-        } catch (Exception e) {
-            throw new DAOException("Error es la sentencia SQL", e);
+        } catch (java.lang.Exception e) {
+            throw new Excepciones("Error es la sentencia SQL", e);
         } finally {
             if (rs != null || ps != null) {
                 try {
                     rs.close();
                     ps.close();
-                }catch (Exception e) {
-                    throw new DAOException("No ha podido cerrar correctamente");
+                }catch (java.lang.Exception e) {
+                    throw new Excepciones("No ha podido cerrar correctamente");
                 }
             }
         }
